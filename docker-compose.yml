@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  web_mines:
+    build: "./web_mines"
+    container_name: web_mines
+    command: -w 30 -h 16 -m 99
+    restart: unless-stopped
+    ports:
+      - 80:80
