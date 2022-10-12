@@ -40,10 +40,10 @@ Xvfb "$DISPLAY" -screen 0 "$DISPLAY_WIDTH"x"$DISPLAY_HEIGHT"x16 &
 sleep 1
 
 x11vnc_with_game(){
-	/usr/games/xdemineur -geometry "$WIDTH"x"$HEIGHT" -m "$MINES" &
+	xdemineur -geometry "$WIDTH"x"$HEIGHT" -m "$MINES" &
 	MS_PID="$!"
 	sleep 1
-	WINDOW_ID=$(xwininfo -root -tree | grep xdemineur | tail -n1 | sed "s/^[ \t]*//" | cut -d ' ' -f1)
+	WINDOW_ID=$(xwininfo -root -tree | grep -a xdemineur | tail -n1 | sed "s/^[ \t]*//" | cut -d ' ' -f1)
 	x11vnc -id "$WINDOW_ID" -forever -shared -noxkb -cursor arrow --nocursor_drag --nodragging -nosetclipboard -noclipboard -nosetprimary -noprimary -nopw
 	kill "$MS_PID"
 }
