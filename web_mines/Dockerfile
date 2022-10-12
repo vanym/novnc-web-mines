@@ -1,19 +1,18 @@
 FROM ubuntu:18.04
 
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update && \
+RUN DEBIAN_FRONTEND=noninteractive apt update && \
     apt install python3 xvfb x11vnc xdemineur -y && \
     apt install git -y && \
-    git clone https://github.com/novnc/noVNC.git -b v1.2.0 && \
-    git clone https://github.com/novnc/websockify.git -b v0.10.0 /noVNC/utils/websockify && \
+    git clone https://github.com/novnc/noVNC.git -b v1.2.0 /root/noVNC && \
+    git clone https://github.com/novnc/websockify.git -b v0.10.0 /root/noVNC/utils/websockify && \
     apt purge git -y && \
     apt autoremove -y && \
-    ln -sr /noVNC/vnc.html /noVNC/index.html && \
+    ln -sr /root/noVNC/vnc.html /root/noVNC/index.html && \
     update-alternatives --install /usr/bin/python python /usr/bin/python3 10 && \
     rm -rf /var/lib/apt/lists/*
 
-COPY ./entrypoint.sh /
+COPY ./entrypoint.sh /root
 
 EXPOSE 80
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/root/entrypoint.sh"]

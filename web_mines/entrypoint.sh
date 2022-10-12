@@ -56,4 +56,4 @@ x11vnc_with_game_loop(){
 
 x11vnc_with_game_loop &
 
-/noVNC/utils/launch.sh --listen 80
+/root/noVNC/utils/launch.sh --listen 80
