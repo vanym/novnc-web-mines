@@ -1,6 +1,6 @@
-FROM alpine
+FROM python:3-alpine
 
-RUN apk add --no-cache bash procps grep python3 xvfb x11vnc xwininfo libxext libxpm \
+RUN apk add --no-cache bash procps grep xvfb x11vnc xwininfo libxext libxpm \
       imake make gcc musl-dev xorg-cf-files libx11-dev libxpm-dev libxext-dev && \
     cd /root && \
     wget -O xdemineur-2.1.1.tar.gz "http://www.babafou.eu.org/xdemineur/xdemineur-2.1.1.tar.gz" && \
