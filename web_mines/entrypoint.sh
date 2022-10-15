@@ -37,6 +37,7 @@ DISPLAY_WIDTH=$((1280 + WIDTH * 24))
 DISPLAY_HEIGHT=$((720 + HEIGHT * 24))
 
 Xvfb "$DISPLAY" -screen 0 "$DISPLAY_WIDTH"x"$DISPLAY_HEIGHT"x16 &
+XVFB_PID="$!"
 sleep 1
 
 x11vnc_with_game(){
@@ -55,5 +56,20 @@ x11vnc_with_game_loop(){
 }
 
 x11vnc_with_game_loop &
+GAMELOOP_PID="$!"
 
-/root/utils/launch.sh --listen 80 --web /root/noVNC
+exit_trap(){
+	kill -s SIGTERM "${GAMELOOP_PID}" "${XVFB_PID}"
+}
+
+trap exit_trap EXIT
+
+/root/utils/launch.sh --listen 80 --web /root/noVNC &
+NOVNC_PID="$!"
+
+term_trap(){
+	kill -s SIGTERM "$NOVNC_PID"
+}
+
+trap term_trap TERM
+wait -f
