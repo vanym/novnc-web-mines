@@ -19,7 +19,7 @@ RUN NOVNC_VERSION=1.2.0 && \
     wget -O novnc-v$NOVNC_VERSION.tar.gz "https://github.com/novnc/noVNC/archive/refs/tags/v$NOVNC_VERSION.tar.gz" && \
     md5sum -c < <(echo "290dfabc4ecdd58d62ccb8c34a922962  novnc-v1.2.0.tar.gz") && \
     tar -vxf novnc-v$NOVNC_VERSION.tar.gz \
-      noVNC-$NOVNC_VERSION/vnc.html noVNC-$NOVNC_VERSION/vnc_lite.html \
+      noVNC-$NOVNC_VERSION/vnc.html noVNC-$NOVNC_VERSION/vnc_lite.html noVNC-$NOVNC_VERSION/package.json \
       noVNC-$NOVNC_VERSION/app/ noVNC-$NOVNC_VERSION/core/ noVNC-$NOVNC_VERSION/vendor/ \
       noVNC-$NOVNC_VERSION/utils/launch.sh && \
     rm novnc-v$NOVNC_VERSION.tar.gz && \
