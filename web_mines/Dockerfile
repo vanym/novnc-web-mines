@@ -14,14 +14,14 @@ RUN apk add --no-cache bash procps grep xvfb x11vnc xwininfo libxext libxpm \
     rm -rf xdemineur-2.1.1* && \
     apk del -r imake make gcc musl-dev xorg-cf-files libx11-dev libxpm-dev libxext-dev
 
-RUN NOVNC_VERSION=1.2.0 && \
+RUN NOVNC_VERSION=1.3.0 && \
     cd /root && \
     wget -O novnc-v$NOVNC_VERSION.tar.gz "https://github.com/novnc/noVNC/archive/refs/tags/v$NOVNC_VERSION.tar.gz" && \
-    md5sum -c < <(echo "290dfabc4ecdd58d62ccb8c34a922962  novnc-v1.2.0.tar.gz") && \
+    md5sum -c < <(echo "22847b4f6e9caa916aa5eceb046f27aa  novnc-v1.3.0.tar.gz") && \
     tar -vxf novnc-v$NOVNC_VERSION.tar.gz \
       noVNC-$NOVNC_VERSION/vnc.html noVNC-$NOVNC_VERSION/vnc_lite.html noVNC-$NOVNC_VERSION/package.json \
       noVNC-$NOVNC_VERSION/app/ noVNC-$NOVNC_VERSION/core/ noVNC-$NOVNC_VERSION/vendor/ \
-      noVNC-$NOVNC_VERSION/utils/launch.sh && \
+      noVNC-$NOVNC_VERSION/utils/novnc_proxy && \
     rm novnc-v$NOVNC_VERSION.tar.gz && \
     ln -sf noVNC-$NOVNC_VERSION noVNC && \
     cd noVNC && \
