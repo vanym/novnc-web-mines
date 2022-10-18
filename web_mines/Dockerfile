@@ -1,18 +1,12 @@
-FROM python:3-alpine
+FROM python:3-slim-buster
 
-RUN apk add --no-cache bash procps grep xvfb x11vnc xwininfo libxext libxpm \
-      imake make gcc musl-dev xorg-cf-files libx11-dev libxpm-dev libxext-dev && \
-    cd /root && \
-    wget -O xdemineur-2.1.1.tar.gz "http://www.babafou.eu.org/xdemineur/xdemineur-2.1.1.tar.gz" && \
-    md5sum -c < <(echo "733daa1db17ed8025186236817c013f7  xdemineur-2.1.1.tar.gz") && \
-    tar -vxf xdemineur-2.1.1.tar.gz && \
-    cd xdemineur-2.1.1 && \
-    xmkmf && \
-    make xdemineur && \
-    make install && \
-    cd /root && \
-    rm -rf xdemineur-2.1.1* && \
-    apk del -r imake make gcc musl-dev xorg-cf-files libx11-dev libxpm-dev libxext-dev
+RUN DEBIAN_FRONTEND=noninteractive apt update && \
+    apt install wget xvfb x11vnc x11-utils xdemineur -y && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV PATH /usr/games:$PATH
+
+SHELL ["bash", "-c"]
 
 RUN NOVNC_VERSION=1.2.0 && \
     cd /root && \
