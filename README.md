@@ -5,3 +5,7 @@ NoVNC-Web-Mines is a docker image that uses [novnc](https://github.com/novnc/noV
 ## Docker
 
 `sudo docker run --rm -d -p 8080:80 vanym/novnc-web-mines`
+
+## Examples
+
+You can find running instances [HERE](https://mines.vanym.com) and [big one here](https://moremines.vanym.com)
