@@ -1,18 +1,16 @@
 FROM python:3-alpine
 
-RUN apk add --no-cache bash procps grep xvfb x11vnc xwininfo libxext libxpm \
-      imake make gcc musl-dev xorg-cf-files libx11-dev libxpm-dev libxext-dev && \
+RUN apk add --no-cache bash procps grep xvfb x11vnc xwininfo libxext libxpm gcompat \
+      dpkg && \
     cd /root && \
-    wget -O xdemineur-2.1.1.tar.gz "http://www.babafou.eu.org/xdemineur/xdemineur-2.1.1.tar.gz" && \
-    md5sum -c < <(echo "733daa1db17ed8025186236817c013f7  xdemineur-2.1.1.tar.gz") && \
-    tar -vxf xdemineur-2.1.1.tar.gz && \
-    cd xdemineur-2.1.1 && \
-    xmkmf && \
-    make xdemineur && \
-    make install && \
-    cd /root && \
-    rm -rf xdemineur-2.1.1* && \
-    apk del -r imake make gcc musl-dev xorg-cf-files libx11-dev libxpm-dev libxext-dev
+    DEBARCH="$(dpkg --print-architecture | awk -F- '{print $NF}')" && \
+    wget -O xdemineur_2.1.1-20.deb \
+      "https://ftp.debian.org/debian/pool/main/x/xdemineur/xdemineur_2.1.1-20_${DEBARCH}.deb" && \
+    dpkg -i --force-architecture --force-depends xdemineur_2.1.1-20.deb && \
+    rm -rf xdemineur_2.1.1* && \
+    apk del -r dpkg
+
+ENV PATH /usr/games:$PATH
 
 RUN NOVNC_VERSION=1.2.0 && \
     cd /root && \
