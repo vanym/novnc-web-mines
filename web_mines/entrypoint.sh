@@ -64,7 +64,7 @@ exit_trap(){
 
 trap exit_trap EXIT
 
-/root/utils/launch.sh --listen 80 --web /root/noVNC &
+/root/utils/novnc_proxy --listen 80 --web /root/noVNC &
 NOVNC_PID="$!"
 
 term_trap(){
