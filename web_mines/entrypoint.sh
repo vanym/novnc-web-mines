@@ -45,7 +45,9 @@ x11vnc_with_game(){
 	MS_PID="$!"
 	sleep 1
 	WINDOW_ID=$(xwininfo -root -tree | grep -a xdemineur | tail -n1 | sed "s/^[ \t]*//" | cut -d ' ' -f1)
-	x11vnc -id "$WINDOW_ID" -forever -shared -noxkb -cursor arrow --nocursor_drag --nodragging -nosetclipboard -noclipboard -nosetprimary -noprimary -nopw
+	x11vnc -id "$WINDOW_ID" -forever -shared -cursor arrow -safer \
+		-nobell -noclipboard -nocmds -nocursor_drag -nodragging -nomodtweak -noprimary \
+		-nopw -noremote -nosel -nosetclipboard -nosetprimary -novncconnect -noxkb -noxrecord
 	kill "$MS_PID"
 }
 
