@@ -34,6 +34,10 @@ RUN NOVNC_VERSION=1.5.0 && \
     rm websockify-v$WEBSOCKIFY_VERSION.tar.gz && \
     ln -s $(readlink -f websockify-$WEBSOCKIFY_VERSION) utils/websockify
 
+RUN sed -i -e "s/getConfigVar( *'autoconnect' *, *false *)/getConfigVar('autoconnect', true)/" \
+      -e "s/Setting( *'reconnect' *, *false *)/Setting('reconnect', true)/" \
+      -e "s/initSetting( *'resize' *, *'off' *)/initSetting('resize', 'scale')/" /root/noVNC/app/ui.js
+
 COPY ./entrypoint.sh /root
 
 EXPOSE 80
